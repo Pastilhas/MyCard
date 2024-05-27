@@ -9,13 +9,13 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -56,11 +56,9 @@ fun Page(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.SpaceBetween,
         modifier = modifier.fillMaxWidth(),
     ) {
-        Row(
+        Spacer(
             modifier.weight(1f),
-        ) {
-
-        }
+        )
 
         Row(
             modifier.weight(1f),
@@ -114,8 +112,7 @@ fun Page(modifier: Modifier = Modifier) {
 @Composable
 fun Contact(contact: String, id: Int, modifier: Modifier = Modifier) {
     Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.padding(8.dp)
+        verticalAlignment = Alignment.CenterVertically, modifier = modifier.padding(8.dp)
     ) {
         Image(
             painter = painterResource(id),
