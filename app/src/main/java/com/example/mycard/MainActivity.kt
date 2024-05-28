@@ -10,20 +10,25 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -40,18 +45,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyCardTheme {
-                Surface(
-                    Modifier.fillMaxSize()
-                ) {
-                    Page()
-                }
+                CardApp()
             }
         }
     }
 }
 
 @Composable
-fun Page(modifier: Modifier = Modifier) {
+fun Card(modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween,
@@ -92,10 +93,11 @@ fun Picture(modifier: Modifier = Modifier) {
             painter = painterResource(R.drawable.chapa),
             contentDescription = "avatar",
             contentScale = ContentScale.Crop,
-            modifier = modifier
+            modifier = Modifier
                 .size(200.dp)
                 .clip(CircleShape)
-                .border(2.dp, Color.Gray, CircleShape)
+                .border(1.dp, Color.DarkGray, CircleShape)
+                .aspectRatio(1f)
         )
 
         Text(
@@ -124,7 +126,6 @@ fun Contact(contact: String, id: Int, modifier: Modifier = Modifier) {
             painter = painterResource(id),
             contentDescription = "contact",
             modifier = modifier.size(24.dp),
-            colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onBackground),
         )
 
         Text(
@@ -138,8 +139,46 @@ fun Contact(contact: String, id: Int, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    MyCardTheme {
-        Page()
+fun CardApp() {
+    Card()
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DiceRollerApp() {
+    DiceWithButtonAndImage(
+        Modifier
+            .fillMaxSize()
+            .wrapContentSize(Alignment.Center)
+    )
+}
+
+@Composable
+fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
+    var result by remember { mutableIntStateOf(1) }
+
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Image(
+            painter = painterResource(
+                id = when (result) {
+                    1 -> R.drawable.dice_1
+                    2 -> R.drawable.dice_2
+                    3 -> R.drawable.dice_3
+                    4 -> R.drawable.dice_4
+                    5 -> R.drawable.dice_5
+                    else -> R.drawable.dice_6
+                }
+            ),
+            contentDescription = result.toString()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(onClick = { result = (1..6).random() }) {
+            Text(text = stringResource(R.string.roll))
+        }
     }
 }
