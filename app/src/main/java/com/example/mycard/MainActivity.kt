@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -63,35 +64,7 @@ fun Page(modifier: Modifier = Modifier) {
         Row(
             modifier.weight(1f),
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.chapa),
-                    contentDescription = "avatar",
-                    contentScale = ContentScale.Crop,
-                    modifier = modifier
-                        .size(160.dp)
-                        .clip(CircleShape)
-                        .border(2.dp, Color.Gray, CircleShape)
-                )
-
-                Text(
-                    text = "João Campos",
-                    textAlign = TextAlign.Center,
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = modifier.padding(top = 12.dp),
-                )
-
-                Text(
-                    text = "Software Engineer",
-                    textAlign = TextAlign.Center,
-                    fontSize = 16.sp,
-                    modifier = modifier.padding(top = 6.dp),
-                )
-            }
+            Picture()
         }
 
         Row(
@@ -101,11 +74,44 @@ fun Page(modifier: Modifier = Modifier) {
             Column(
                 modifier = modifier.padding(bottom = 48.dp)
             ) {
-                Contact(contact = "937 588 691", id = R.drawable.telephone)
-                Contact(contact = "Pastilhas", id = R.drawable.github)
-                Contact(contact = "jp-campos", id = R.drawable.linkedin)
+                Contact(contact = stringResource(R.string.mobile), id = R.drawable.telephone)
+                Contact(contact = stringResource(R.string.git_user), id = R.drawable.github)
+                Contact(contact = stringResource(R.string.in_user), id = R.drawable.linkedin)
             }
         }
+    }
+}
+
+@Composable
+fun Picture(modifier: Modifier = Modifier) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Image(
+            painter = painterResource(R.drawable.chapa),
+            contentDescription = "avatar",
+            contentScale = ContentScale.Crop,
+            modifier = modifier
+                .size(200.dp)
+                .clip(CircleShape)
+                .border(2.dp, Color.Gray, CircleShape)
+        )
+
+        Text(
+            text = stringResource(R.string.name),
+            textAlign = TextAlign.Center,
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = modifier.padding(top = 12.dp),
+        )
+
+        Text(
+            text = stringResource(R.string.title),
+            textAlign = TextAlign.Center,
+            fontSize = 16.sp,
+            modifier = modifier.padding(top = 6.dp),
+        )
     }
 }
 
@@ -116,7 +122,7 @@ fun Contact(contact: String, id: Int, modifier: Modifier = Modifier) {
     ) {
         Image(
             painter = painterResource(id),
-            contentDescription = "phone",
+            contentDescription = "contact",
             modifier = modifier.size(24.dp),
             colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onBackground),
         )

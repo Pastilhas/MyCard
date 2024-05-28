@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyCard</string>
+    <string name="title">Software Engineer</string>
+    <string name="name">João Campos</string>
+    <string name="mobile">937 588 691</string>
+    <string name="git_user">Pastilhas</string>
+    <string name="in_user">jp-campos</string>
 </resources>
